@@ -26,7 +26,6 @@ jobs:
         with:
           args: --docker
         env:
-          BUILD_PATH: ../
           USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
           IMAGE_NAME: "mehdib/cryptospace"
