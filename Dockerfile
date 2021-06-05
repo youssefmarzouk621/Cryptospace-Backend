@@ -4,7 +4,7 @@ FROM node:stretch-slim
 WORKDIR /app
 
 # Install app dependencies
-COPY app/package*.json /app
+COPY app/package*.json /app/
 
 RUN npm install
 
