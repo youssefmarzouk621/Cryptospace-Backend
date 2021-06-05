@@ -26,9 +26,9 @@ jobs:
         with:
           args: --docker
         env:
+          BUILD_PATH: ${GITHUB_REPOSITORY}
           USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-          DOCKERFILE: "Dockerfile"
           IMAGE_NAME: "mehdib/cryptospace"
           TAG_NAME: "v0.0.1"
           LATEST: "true"
