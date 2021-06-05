@@ -32,6 +32,7 @@ jobs:
           IMAGE_NAME: "dockeryfox/cryptospace"
           TAG_NAME: "v0.0.1"
           LATEST: "true"
+      - uses: actions/checkout@v2
       - name: Build, Push and Deploy to Heroku #set the whatever name you want to this step
         id: heroku
         uses: jctaveras/heroku-deploy@v1.0.0  # use the latest version of the action
