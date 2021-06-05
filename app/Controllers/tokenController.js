@@ -12,7 +12,7 @@ const VaultCoinArtifact = require('../../build/contracts/VaultCoin.json');
 
 const getBalance = async (req,res,next)  => {
   web3js = new web3(new web3.providers.HttpProvider(
-    process.env.ropstenKey
+    "https://ropsten.infura.io/v3/b05dc62351984a3e95cfc176400805aa"
   ));
   var meta=null;
   const networkId = await web3js.eth.net.getId();
@@ -66,7 +66,7 @@ const sendCoin = async (req,res,next)  => {
 
 const getTransactionHistory = async (req,res,next) => {
   web3js = new web3(new web3.providers.HttpProvider(
-    process.env.ropstenKey
+    "https://ropsten.infura.io/v3/b05dc62351984a3e95cfc176400805aa"
   ));
   var meta=null;
   const networkId = await web3js.eth.net.getId();
@@ -113,7 +113,7 @@ const generateSeedPhrase = async (req,res,next) => {
 
 const importAccount = async (req,res,next) => {
   web3js = new web3(new web3.providers.HttpProvider(
-    process.env.ropstenKey
+    "https://ropsten.infura.io/v3/b05dc62351984a3e95cfc176400805aa"
   ));
   const privateKey = req.body.privatekey;
 
@@ -134,7 +134,7 @@ const createAccount = async (req,res,next) => {
   });*/
 
   web3js = new web3(new web3.providers.HttpProvider(
-    process.env.ropstenKey
+    "https://ropsten.infura.io/v3/b05dc62351984a3e95cfc176400805aa"
   ));
 
   const account = await web3js.eth.accounts.create();
@@ -148,7 +148,7 @@ const createAccount = async (req,res,next) => {
 
 const getBalanceInEth = async (req,res,next) => {
   web3js = new web3(new web3.providers.HttpProvider(
-    process.env.ropstenKey
+    "https://ropsten.infura.io/v3/b05dc62351984a3e95cfc176400805aa"
   ));
 
   const publicKey = req.body.account;
