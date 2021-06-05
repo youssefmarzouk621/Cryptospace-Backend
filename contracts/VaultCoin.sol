@@ -4,7 +4,7 @@ pragma solidity >=0.4.21 <0.7.0;
 // ----------------------------------------------------------------------------
 // 'Vault' token contract
 //
-// Deployed to : 0x72aEA1eB9eB7B9D8f6A80e38F81A2bb50B97CCB2
+// Deployed to : 0xF8C3f3252d89f302753D362D34DD52f53ed4cDC5
 // Symbol      : VLT
 // Name        : Vault
 // Total supply: 100000000
@@ -118,8 +118,8 @@ contract VaultCoin is ERC20Interface, Owned, SafeMath {
         name = "Vault";
         decimals = 18;
         _totalSupply = 100000000000000000000000000;
-        balances[0x72aEA1eB9eB7B9D8f6A80e38F81A2bb50B97CCB2] = _totalSupply;
-        emit Transfer(address(0), 0x72aEA1eB9eB7B9D8f6A80e38F81A2bb50B97CCB2, _totalSupply);
+        balances[0xF8C3f3252d89f302753D362D34DD52f53ed4cDC5] = _totalSupply;
+        emit Transfer(address(0), 0xF8C3f3252d89f302753D362D34DD52f53ed4cDC5, _totalSupply);
     }
 
 

@@ -8,18 +8,18 @@ const { exec } = require('child_process');
 const route = express.Router();
 
 const web3 = require('web3');
-const TunCoinArtifact = require('../../build/contracts/TunCoin.json');
-
-
+const VaultCoinArtifact = require('../../build/contracts/VaultCoin.json');
 
 const getBalance = async (req,res,next)  => {
-  web3js = new web3(new web3.providers.HttpProvider("http://127.0.0.1:7545"));
+  web3js = new web3(new web3.providers.HttpProvider(
+    process.env.ropstenKey
+  ));
   var meta=null;
   const networkId = await web3js.eth.net.getId();
-  const deployedNetwork = TunCoinArtifact.networks[networkId];
+  const deployedNetwork = VaultCoinArtifact.networks[networkId];
   
   meta = new web3js.eth.Contract(
-      TunCoinArtifact.abi,
+      VaultCoinArtifact.abi,
       deployedNetwork.address,
   );
 
@@ -36,13 +36,15 @@ const getBalance = async (req,res,next)  => {
 }
 
 const sendCoin = async (req,res,next)  => {
-  web3js = new web3(new web3.providers.HttpProvider("http://127.0.0.1:7545"));
+  web3js = new web3(new web3.providers.HttpProvider(
+    process.env.ropstenKey
+  ));
   var meta=null;
   const networkId = await web3js.eth.net.getId();
-  const deployedNetwork = TunCoinArtifact.networks[networkId];
+  const deployedNetwork = VaultCoinArtifact.networks[networkId];
   
   meta = new web3js.eth.Contract(
-      TunCoinArtifact.abi,
+      VaultCoinArtifact.abi,
       deployedNetwork.address,
   );
 
@@ -63,13 +65,15 @@ const sendCoin = async (req,res,next)  => {
 }
 
 const getTransactionHistory = async (req,res,next) => {
-  web3js = new web3(new web3.providers.HttpProvider("http://127.0.0.1:7545"));
+  web3js = new web3(new web3.providers.HttpProvider(
+    process.env.ropstenKey
+  ));
   var meta=null;
   const networkId = await web3js.eth.net.getId();
-  const deployedNetwork = TunCoinArtifact.networks[networkId];
+  const deployedNetwork = VaultCoinArtifact.networks[networkId];
   
   meta = new web3js.eth.Contract(
-      TunCoinArtifact.abi,
+      VaultCoinArtifact.abi,
       deployedNetwork.address,
   );
 
@@ -108,7 +112,9 @@ const generateSeedPhrase = async (req,res,next) => {
 }
 
 const importAccount = async (req,res,next) => {
-  web3js = new web3(new web3.providers.HttpProvider("http://127.0.0.1:7545"));
+  web3js = new web3(new web3.providers.HttpProvider(
+    process.env.ropstenKey
+  ));
   const privateKey = req.body.privatekey;
 
   const account = await web3js.eth.accounts.privateKeyToAccount(privateKey);
@@ -127,7 +133,9 @@ const createAccount = async (req,res,next) => {
     account:"0xEeA09a32C4a4986E198F76493A177aa2e0D67092"
   });
 
-  //web3js = new web3(new web3.providers.HttpProvider("http://127.0.0.1:7545"));
+  /*web3js = new web3(new web3.providers.HttpProvider(
+    process.env.ropstenKey
+  ));*/
 
   //const account = await web3js.eth.accounts.create();
 
@@ -139,7 +147,9 @@ const createAccount = async (req,res,next) => {
 }
 
 const getBalanceInEth = async (req,res,next) => {
-  web3js = new web3(new web3.providers.HttpProvider("http://127.0.0.1:7545"));
+  web3js = new web3(new web3.providers.HttpProvider(
+    process.env.ropstenKey
+  ));
 
   const publicKey = req.body.account;
   web3js.eth.getBalance(publicKey, function(err, result) {
