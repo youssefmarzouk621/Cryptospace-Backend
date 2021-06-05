@@ -128,21 +128,21 @@ const importAccount = async (req,res,next) => {
 
 const createAccount = async (req,res,next) => {
   console.log("inside create account")
-  res.json({
+  /*res.json({
     privatekey:"dc999166e40dfde0fe68d2c3e81b1bb11f12f89778f58ed31fd943447c8f8ab6",
     account:"0xEeA09a32C4a4986E198F76493A177aa2e0D67092"
-  });
+  });*/
 
-  /*web3js = new web3(new web3.providers.HttpProvider(
+  web3js = new web3(new web3.providers.HttpProvider(
     process.env.ropstenKey
-  ));*/
+  ));
 
-  //const account = await web3js.eth.accounts.create();
+  const account = await web3js.eth.accounts.create();
 
-  /*res.json({
+  res.json({
     privatekey:account['privateKey'],
     account:account['address']
-  });*/
+  });
   
 }
 
