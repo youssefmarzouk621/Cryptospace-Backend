@@ -27,7 +27,7 @@ jobs:
           args: --docker
         env:
           USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
           DOCKERFILE: "Dockerfile"
           IMAGE_NAME: "USERNAME/IMAGE_NAME"
           TAG_NAME: "v0.0.1"
