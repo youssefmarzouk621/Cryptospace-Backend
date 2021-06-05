@@ -40,7 +40,7 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
           api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
           app_name: ${{ secrets.HEROKU_APP_NAME }} # you aplication name
-          dockerfile_path: .
+          dockerfile_path: './'
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
