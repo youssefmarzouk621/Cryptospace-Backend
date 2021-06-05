@@ -21,14 +21,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
+      - name: Docker Build & Push to Docker Hub
+        uses: opspresso/action-docker@master
         with:
-          context: .
-          push: true
-          tags: user/app:latest
+          args: --docker
+        env:
+          USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKERFILE: "Dockerfile"
+          IMAGE_NAME: "USERNAME/IMAGE_NAME"
+          TAG_NAME: "v0.0.1"
+          LATEST: "true"
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
