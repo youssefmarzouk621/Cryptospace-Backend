@@ -37,7 +37,7 @@ const getBalance = async (req,res,next)  => {
 
 const sendCoin = async (req,res,next)  => {
   web3js = new web3(new web3.providers.HttpProvider(
-    process.env.ropstenKey
+    "https://ropsten.infura.io/v3/b05dc62351984a3e95cfc176400805aa"
   ));
   var meta=null;
   const networkId = await web3js.eth.net.getId();
@@ -85,10 +85,14 @@ const getTransactionHistory = async (req,res,next) => {
     let account = req.body.account;
     for (let i = 0; i < events.length; i++) {
       if (( account == events[i].returnValues.from) || (account == events[i].returnValues.to)) {
+
+        const amount = parseInt(events[i].returnValues.tokens);
+        const convertedAmount = amount/1000000000000000000;
+        
         transactions.push({
           from:events[i].returnValues.from,
           to:events[i].returnValues.to,
-          tokens:events[i].returnValues.tokens,
+          tokens:convertedAmount.toString(),
         });
       }
     }

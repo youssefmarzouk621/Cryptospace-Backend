@@ -12,6 +12,8 @@ crypto = require('crypto');
 
 const route = express.Router();
 const ACCESS_TOKEN_SECRET="bea7af02df576b12839cad20d34a17570cd330c47e0ace7d62972acf60a8e998d2ebaad93c442fd75af1bc4883082496c8298e49f851eb22e68d9752d19ddb15"
+
+
 const register = (req,res,next) => {
 	bcrypt.hash(req.body.password,10,function(err,hashedPass) {
 		
@@ -34,7 +36,9 @@ const register = (req,res,next) => {
 					email: req.body.email,
 					password: hashedPass,
 					phone: req.body.phone,
-					verified:0
+					verified:0,
+					affiliate:"",
+					circle:[]
 				})
 				user.save().then(user =>{
 					res.status(200).send(JSON.stringify({
@@ -78,6 +82,8 @@ const login = (req,res,next) => {
                             email:user.email,
                             password:user.password,
                             phone:user.phone,
+							affiliate:user.affiliate,
+							circle:user.circle,
                             accessToken: accessToken
                             })
                         )
@@ -105,7 +111,6 @@ const index = (req,res,next)  => {
 
 const verifyAccount = (req,res,next) => {
 
-
 	User.findOneAndUpdate({ email: req.body.email },{verified: 1},{useFindAndModify: false})
 	.then((user) => {
 		const hash = { name: user._id }
@@ -119,6 +124,8 @@ const verifyAccount = (req,res,next) => {
 			email:user.email,
 			password:user.password,
 			phone:user.phone,
+			affiliate:user.affiliate,
+			circle:user.circle,
 			accessToken: accessToken
 			})
 		)
@@ -127,9 +134,6 @@ const verifyAccount = (req,res,next) => {
 		res.sendStatus(204)
 	})
 }
-
-
-
 
 
 
