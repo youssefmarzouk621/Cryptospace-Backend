@@ -97,7 +97,7 @@ const getTransactionHistory = async (req,res,next) => {
       }
     }
 
-    res.json(transactions)
+    res.json(transactions.reverse())
     
   })
 }
