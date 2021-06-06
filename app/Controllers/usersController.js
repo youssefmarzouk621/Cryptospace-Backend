@@ -11,7 +11,7 @@ path = require('path');
 crypto = require('crypto');
 
 const route = express.Router();
-
+const ACCESS_TOKEN_SECRET="bea7af02df576b12839cad20d34a17570cd330c47e0ace7d62972acf60a8e998d2ebaad93c442fd75af1bc4883082496c8298e49f851eb22e68d9752d19ddb15"
 const register = (req,res,next) => {
 	bcrypt.hash(req.body.password,10,function(err,hashedPass) {
 		
@@ -134,7 +134,7 @@ const verifyAccount = (req,res,next) => {
 
 
 function generateAccessToken(hash) {
-    return jwt.sign(hash, process.env.ACCESS_TOKEN_SECRET)
+    return jwt.sign(hash, ACCESS_TOKEN_SECRET)
 }
 
 function authenticateToken(req, res, next) {
@@ -142,7 +142,7 @@ function authenticateToken(req, res, next) {
     const token = authHeader && authHeader.split(' ')[1]
     if (token == null) return res.status(401).send(JSON.stringify({msg:"no token in headers"}))
   
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) return res.status(403).send(JSON.stringify({msg:"erreur in token"}))
       req.user = user
       next()
