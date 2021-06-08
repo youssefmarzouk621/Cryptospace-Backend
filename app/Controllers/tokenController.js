@@ -26,10 +26,12 @@ const getBalance = async (req,res,next)  => {
 
   const { balanceOf } = meta.methods;
   const balance = await balanceOf(req.body.account).call();
+
+  const parsedBalance = parseFloat(web3.utils.fromWei(balance, "ether")).toFixed(2);
   res.status(200).send(JSON.stringify(
       {
         balance:balance,
-        balanceVaultWei:web3.utils.fromWei(balance, "ether"),
+        balanceVaultWei:parsedBalance.toString(),
       }
     )
   )
@@ -55,8 +57,8 @@ const sendCoin = async (req,res,next)  => {
   const privateKey1 = '0e42ff8df9905b203a0260410dbbfd602b23e894824a2a8c537a4283826019c2'
   const privateKey1Buffer = Buffer.from(privateKey1, 'hex')
 
-    console.log(req.body.to);
-    console.log(req.body.from);
+    console.log(req.body.receiver);
+    console.log(req.body.account);
   function sendRaw(rawTx) {
     var privateKey = new Buffer.from(privateKey1Buffer, 'hex');
     
@@ -74,71 +76,20 @@ const sendCoin = async (req,res,next)  => {
             }
         });
 }
-console.log("transactions:" +web3js.eth.getTransactionCount(req.body.to));
+console.log("transactions:" +web3js.eth.getTransactionCount(req.body.receiver));
 var rawTx = {
-  nonce: web3js.utils.toHex(web3js.eth.getTransactionCount(req.body.to)),
+  nonce: web3js.utils.toHex(web3js.eth.getTransactionCount(req.body.receiver)),
   gasPrice: 0x9184e72a000,
   gasLimit: web3.utils.toHex(21000),
-  to: req.body.to,
-  from: req.body.from,
-  value: req.body.value
+  to: req.body.receiver,
+  from: req.body.account,
+  value: req.body.amount
 
 }
 sendRaw(rawTx);
 console.log(rawTx);
 
-
-  //const tx = new Tx(req.body, { 'chain': 'ropsten' });
-  //tx.sign("0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318");
-  //var serializedTx = '0x' + tx.serialize().toString('hex');
-
-
-  //signed = web3js.eth.account.sign_transaction(req.body, key)
-  //signed = web3js.eth.getTransactionCount(req.body.from);
-  //const tx = new Tx(req.body, { 'chain': 'ropsten' });
-  //tx.sign(privateKey1Buffer);
- // const serializedTx = tx.serialize().toString('hex')
-  //web3js.eth.sendSignedTransaction('0x' + serializedTx)
-  //signed.rawTransaction
-  //web3js.eth.sendRawTransaction(signed.rawTransaction) 
- // web3js.eth.sendTransaction(serializedTx)
-  //await transfer(req.body.to, req.body.value).send({ from: req.body.from });
- // var web4 = new web3(new web3.providers.HttpProvider("https://ropsten.infura.io/v3/b05dc62351984a3e95cfc176400805aa"));
-
-
-  // get the number of transactions sent so far so we can create a fresh nonce
- //var contract =  web4.eth.contract(VaultCoinArtifact.abi).at(deployedNetwork.address);
-
-//   web3js.eth.getTransactionCount(req.body.from).then(txCount => {
-//     var txData = {
-      
-
-//       nonce: web3.utils.toHex(txCount),
-      
-//       gasLimit: web3.utils.toHex(25000),
-      
-//       gasPrice: web3.utils.toHex(web3js.eth.gasPrice),
-      
-//       to: req.body.to,
-      
-//       from: req.body.from,
-
-//       value: 0,
-      
-//       data: contract.transfer.getData(req.body.to, req.body.values),
-//       chainId: 0x03      
-//       }
-
-    //const newNonce = web3.utils.toHex(txCount)
-  // const transaction = new Tx(txData, { 'chain': 'ropsten' });
-  //   transaction.sign(privateKey1Buffer)
-  //   const serializedTx = transaction.serialize().toString('hex')
-  //   console.log(serializedTx )
-  //   console.log("testttt" )
-  //   web3js.eth.sendSignedTransaction('0x' + serializedTx)
-  // });
-  
-  const balance = await balanceOf(req.body.to).call();
+  const balance = await balanceOf(req.body.receiver).call();
   
   res.status(200).send(JSON.stringify(
       {
