@@ -61,7 +61,7 @@ const sendCoin = async (req,res,next)  => {
     console.log(req.body.account);
   function sendRaw(rawTx) {
     var privateKey = new Buffer.from(privateKey1Buffer, 'hex');
-    
+        
     var transaction = new Tx(rawTx, {'chain':'ropsten'});
     transaction.sign(privateKey);
     var serializedTx = transaction.serialize().toString('hex');
